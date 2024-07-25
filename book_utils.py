@@ -3,14 +3,21 @@ import datetime
 import user_utils as UU
 
 class Book(GU.Genre):
-    def __init__(self, title, descriptor, category, author, isbn, pubdate)
-        self.__name = title
+    def __init__(self, name, descriptor, category, title, author, isbn, pubdate)
+        self.__name = name
         self.__descriptor = descriptor
         self.__category = category
+        self.__title = title
         self.__author = author
         self.__isbn = isbn
         self.__publication_date = pubdate
         self.__status = True
+    
+    def get_title(self):
+        return self.__title
+    
+    def set_title(self, title):
+        self.__title = title
 
     def get_author(self):
         return self.__author
