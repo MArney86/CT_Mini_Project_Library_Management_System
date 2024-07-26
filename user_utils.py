@@ -25,10 +25,10 @@ class User:
         self.__borrowed.append(isbn)
         print(f"{self.__name}(ID:{__library_id}) has borrowed {book_dict['isbn'].get_name()} by {book_dict['isbn'].get_author()}")
 
-    def remove_borrowed(self, isbn)
+    def remove_borrowed(self, book_dict, isbn)
         if isbn in self.__borrowed:
             self.__borrowed.remove(isbn)
-            print(f'Title "{book_name}" has been returned by {self.__name}')
+            print(f'Title "{book_dict[isbn].get_title()}" has been returned by {self.__name}')
         else:
             print(f"That title was not borrowed by {self.__name}")
 

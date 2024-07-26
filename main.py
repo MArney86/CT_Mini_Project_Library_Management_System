@@ -2,14 +2,14 @@ import book_utils
 import author_utils
 
 def main():
-    '''Welcome to the Library Management System!
+    print('''Welcome to the Library Management System!
 
 Main Menu:
 1. Book Operations
 2. User Operations
 3. Author Operations
 4. Genre Operations
-5. Quit'''
+5. Quit''')
 
 def book_menu():
     '''Book Operations:
