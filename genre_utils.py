@@ -24,19 +24,28 @@ class Genre:
 
 
 def add_genre(genres_dict):
-    #ask user for name of genre
-    #ask user for description of genre
-    #ask user for category (Fiction, Non-fiction, Reference, Periodicals)
-    #add new genre to genre dictionary using the name as a key for quicker searching
+    name = input("Please enter the Genre name : ") #ask user for name of genre
+    description = input("Please enter a description for the Genre: ") #ask user for description of genre
+    while True: #loop in case of invalid input
+        category = ("Please enter the category (Fiction, Non-fiction, Reference, Periodicals) of the Genre: ").strip() #ask user for category (Fiction, Non-fiction, Reference, Periodicals)
+        if category == "Fiction" or category == "Non-fiction" or category == "Reference" or category == "Periodicals": #check that a valid category was entered
+            genres_dict[name.lower()] = Genre(name, description, category) #add new genre to genre dictionary using the name as a key for quicker searching
+            break #end loop
+        else:
+            print("That category is invalid. Please enter a valid category")
 
 def view_genre(genres_dict, name):
-    #check name is in dictionary keys
-        #print the genre's details to the user
-    #tell user genre doesn't exist if not in keys
-        #ask user if they want to add
-        #add_genre()
+    if name.lower() in genres_dict.keys(): #check name is in dictionary keys
+        print(f"\nName: {genres_dict[name.lower()].get_name()}") #print genre name to operator
+        print(f"Description: {genres_dict[name.lower()].get_description()}") #print description to operator 
+        print(f"Category: {genres_dict[name.lower()].get_category()}") #print category to operator
+    else: #genre doesn't exist in keys
+        print("That genre is not in the library's list of genres.") #notify user that genre is not in library
+        choice = input("Would you like to add the genre? (yes/no): ").strip() #offer to add
+        if choice == 'yes': #operator chooses to add
+            add_genre(genres_dict) #add genre
 
 def view_all_genres(genres_dict):
-    #verify that there are genres in dictionary
-        #iterate through the genres (values) in the dictionary
-            #print the genre details to user
+    if genres_dict: #verify that there are genres in dictionary
+        for name in genres_dict.keys(): #iterate through the genres in the dictionary
+            view_genre(genres_dict, name)#print the genre details to user

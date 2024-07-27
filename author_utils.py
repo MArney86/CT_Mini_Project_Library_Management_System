@@ -27,7 +27,7 @@ def view_author(author_dict, name):
     else: #author doesn't exist in keys
         print("That Author name is not in the library's list of authors.") #notify user that author is not in library
         choice = input("Would you like to add the Author? (yes/no): ").strip() #offer to add
-        if choice == 'yes':
+        if choice == 'yes': #operator chooses to add
             add_author(author_dict) #add author
 
 def view_all_authors(author_dict):
