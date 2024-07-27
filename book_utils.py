@@ -104,12 +104,12 @@ def is_valid_date(user_date): #function to validate date inputs
     return result #no errors, return true value
 
 def add_book(book_dict, genre_dict):
-    title = input("Please enter the title of the book you'd like to add: ") #get title from operator
-    author = input("Please enter the Author of the book you'd like to add: ")#get author from operator
-    isbn = input("Please enter the ISBN for the book you'd like to add: ")#get isbn from operator
+    title = input("Please enter the title of the book you'd like to add: ").strip() #get title from operator
+    author = input("Please enter the Author of the book you'd like to add: ").strip() #get author from operator
+    isbn = input("Please enter the ISBN for the book you'd like to add: ").strip() #get isbn from operator
 
     while True: #loop incase of invalid inputs
-        pub_date = input("Please enter the publication date of the book you'd like to add (MM/DD/YYYY format): ") #get publication date from operator
+        pub_date = input("Please enter the publication date of the book you'd like to add (MM/DD/YYYY format): ").strip() #get publication date from operator
         if is_valid_date(pub_date): #check that input is valid
             pub_date = dt.date(pub_date) #add publication date as date object
             break #end loop
@@ -121,7 +121,7 @@ def add_book(book_dict, genre_dict):
         if genre_dict: #ensure there are already genres in the genre dictionary
             for genre in genre_dict.keys(): #iterate through genre names as keys in genre dictionary
                 print(genre_dict[genre].get_name()) #print the iterated genre
-            choice = input("Please input the genre of the book you're adding to the library: ") #get chosen genre from operator
+            choice = input("Please input the genre of the book you're adding to the library: ").strip() #get chosen genre from operator
             if choice.lower in genre_dict.keys(): #check that the user input is in genre dictionary
                 name = genre_dict[choice.lower()].get_name() #set name placeholder
                 description = genre_dict[choice.lower()].get_description() #set descriptor placeholder
@@ -179,7 +179,7 @@ def display_book(book_dict, isbn):
 
 def search_books(book_dict):
     while True: #loop in case of invalid input
-        choice = input("\nSearch criteria choices:\n1. By Book Title\n2. By Book Author\n3. By ISBN\n4. By Genre\n5. Return to previous menu\nWhich criteria would you like to search for a book by?: ") #ask user what criteria they want to search
+        choice = input("\nSearch criteria choices:\n1. By Book Title\n2. By Book Author\n3. By ISBN\n4. By Genre\n5. Return to previous menu\nWhich criteria would you like to search for a book by?: ").strip() #ask user what criteria they want to search
         
         if choice == '1': #search by title
             query = input("Please input the title you are searching for: ").strip() #get title to search from operator
@@ -188,7 +188,7 @@ def search_books(book_dict):
             break #end loop
         
         elif choice == '2': #search by author
-            query = input("What is the name of the Author you'd like to search for books from?") #get author to search from operator
+            query = input("What is the name of the Author you'd like to search for books from?").strip() #get author to search from operator
             found = False #initialize found flag
             found_list = [] #initialize list of found books
             for isbn, book in book_dict.items(): #iterate through books in dictionary

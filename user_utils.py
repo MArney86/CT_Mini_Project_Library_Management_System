@@ -38,7 +38,7 @@ def generate_library_id():
     return id #return new library id
 
 def add_user(user_dict):
-    name = input("Please enter the name of the user you'd like to add: ") #get new user's name
+    name = input("Please enter the name of the user you'd like to add: ").strip() #get new user's name
     id_temp = generate_library_id() #generate new user's library id
     id = '' #initialize blank id
 
