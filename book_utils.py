@@ -151,7 +151,7 @@ def borrow_book(user_dict, book_dict):
     else: #status borrowed
         print(f'"{book_dict[query].get_title()}" is already borrowed out') #notify operator that that book is unavailable
 
-def return_book(book_dict, user_dict):
+def return_book(user_dict, book_dict):
     user = input("Please enter the name or Library ID of the user checking out the book").strip() #get user name or library id from operator
     query = input("Please enter the ISBN or title of the book you'd like to borrow: ").strip() #get title or isbn of book from operator
     if user.isalnum() and not query.isnumeric():
