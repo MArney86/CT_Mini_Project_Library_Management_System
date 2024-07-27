@@ -16,8 +16,8 @@ class Author:
         self.__biography = bio
 
 def add_author(author_dict):
-    name = input("Please enter the name of the Author you wish to add").strip() #get name from user
-    bio = input("Please enter a biography for the Author you wish to add").strip() #get biography from user
+    name = input("Please enter the name of the Author you wish to add: ").strip() #get name from user
+    bio = input("Please enter a biography for the Author you wish to add: ").strip() #get biography from user
     author_dict[name.lower()] = Author(name, bio) #add author to author dictionary using name as key for quicker searching
 
 def view_author_details(author_dict):
@@ -31,12 +31,16 @@ def view_author_details(author_dict):
             choice = input("Would you like to add the Author? (yes/no): ").strip() #offer to add
             if choice == 'yes': #operator chooses to add
                 add_author(author_dict) #add author
+            else:
+                break
 
 def display_author(author_dict, name):
-    print(f"Name: {author_dict[name.lower()].get_name()}") #print author name to operator
+    print(f"\nName: {author_dict[name.lower()].get_name()}") #print author name to operator
     print(f"Biography: {author_dict[name.lower()].get_biography()}") #print author's biography to operator
 
 def display_all_authors(author_dict):
     if author_dict: #check that there are authors in the dictionary
         for name in author_dict.keys(): #iterate through authors in dictionary
             display_author(author_dict, name) #print details of author to user
+    else:
+        print("There are currently no authors in the library records")
