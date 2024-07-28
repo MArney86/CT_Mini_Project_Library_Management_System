@@ -3,7 +3,6 @@ import author_utils as au
 import genre_utils as gu
 import user_utils as uu
 import sys
-import datetime as dt
 
 library_books = {}
 library_users = {}
@@ -11,25 +10,6 @@ library_authors = {}
 library_genres = {}
 
 def main():
-    #preload for testing
-    library_genres['fantasy'] = gu.Genre("Fantasy", "Fantasy Worlds", "Fiction")
-    library_genres['political fiction'] = gu.Genre("Political Fiction", "Stories about worlds with different political structures", "Fiction")
-    library_genres['biography'] = gu.Genre("Biography", "The stories of the lives of real people", "Non-fiction")
-    library_genres['almanac'] = gu.Genre("Almanac", "A collection of facts and information", "Reference")
-    library_genres['dictionary'] = gu.Genre("Dictionary", "A compendium of words and their definitions", "Reference")
-    library_books['9780544003415'] = bu.Book("Fantasy", "Fantasy Worlds", "Fiction","Lord of the Rings", "J.R.R. Tolkien", "9780544003415", dt.date(2012, 8, 14))
-    library_books['9781443434973'] = bu.Book("Political Fiction", "Stories about worlds with different political structures", "Fiction", "1984", "George Orwell", "9781443434973", dt.date(2014, 3, 25))
-    library_books['9780345325815'] = bu.Book("Fantasy", "Fantasy Worlds", "Fiction", "The Silmarillion", "J.R.R. Tolkien", "9780345325815", dt.date(2002, 1, 1))
-    library_books['9781510777606'] = bu.Book("Almanac", "A collection of facts and information", "Reference", "The World Almanac and Book of Facts 2024", "Sarah Janssen", "9781510777606", dt.date(2023, 11, 28))
-    library_books['9780199571123'] = bu.Book("Dictionary", "A compendium of words and their definitions", "Reference", "Oxford Dictionary of English, 3rd Edition", "Oxford Languages", "9780199571123", dt.date(2010, 10, 19))
-    library_books['9781451648539'] = bu.Book("Biography", "The stories of the lives of real people", "Non-fiction", "Steve Jobs", "Walter Isaacson", "9781451648539", dt.date(2011, 10, 24))
-    library_authors["j.r.r. tolkien"] = au.Author("J.R.R. Tolkien", "J.R.R. Tolkien was born on 3rd January 1892. After serving in the First World War, he became best known for The Hobbit and The Lord of the Rings, selling 150 million copies in more than 40 languages worldwide. Awarded the CBE and an honorary Doctorate of Letters from Oxford University, he died in 1973 at the age of 81.")
-    library_authors["george orwell"] = au.Author("George Orwell", "George Orwell (born June 25, 1903, Motihari, Bengal, India—died January 21, 1950, London, England) was an English novelist, essayist, and critic famous for his novels Animal Farm (1945) and Nineteen Eighty-four (1949). The latter of these is a profound anti-utopian novel that examines the dangers of totalitarian rule.")
-    library_users['951473671328'] = uu.User("John Smith", "951473671328")
-    library_users['321468132177'] = uu.User("Jane Doe", "321468132177")
-    library_users['976131468354'] = uu.User("John Smith", "976131468354")
-
-
     while True: #loop in case of invalid input
         print("\nWelcome to the Library Management System!\n") #display main menu
         print("Main Menu:")
