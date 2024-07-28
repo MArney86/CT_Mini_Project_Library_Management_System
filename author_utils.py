@@ -19,6 +19,7 @@ def add_author(author_dict):
     name = input("Please enter the name of the Author you wish to add: ").strip() #get name from user
     bio = input("Please enter a biography for the Author you wish to add: ").strip() #get biography from user
     author_dict[name.lower()] = Author(name, bio) #add author to author dictionary using name as key for quicker searching
+    return name.lower()
 
 def view_author_details(author_dict):
     while True:

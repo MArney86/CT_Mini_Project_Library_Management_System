@@ -2,12 +2,16 @@ import book_utils as bu
 import author_utils as au
 import genre_utils as gu
 import user_utils as uu
+import files_handler as fh
 import sys
 
 library_books = {}
 library_users = {}
 library_authors = {}
 library_genres = {}
+
+file_support = fh.File_Handler('users.log', 'genres.log', 'books.log', 'authors.log')
+file_support.load_all(library_authors, library_books, library_genres, library_users)
 
 def main():
     while True: #loop in case of invalid input
@@ -30,7 +34,14 @@ def main():
         elif choice == '4': #chose genre operations
             genre_menu() #load the genre menu
         elif choice == '5': #chose to quit
+            file_support.save_all(library_authors, library_books, library_genres, library_users)
             sys.exit("Thank you for using the Library Management System") #exit program to system/terminal prompt
+        elif choice == 'Force Reload':
+            file_support.reload_all(library_authors, library_books, library_genres, library_users)
+            print("\033[7mAll information has been cleared and reloaded from file\033[0m")
+        elif choice == 'Force Save':
+            file_support.save_all(library_authors, library_books, library_genres, library_users)
+            print("\033[7mAll information has been saved to file by operator request\033[0m")
         else: #invalid response
             print("Invalid choice. Please try again.") #notify user of invalid response
             
@@ -46,11 +57,21 @@ def book_menu():
 
         choice = input("What would you like to do?: ") #get user choice
         if choice == '1': #chose to add book
-            bu.add_book(library_books, library_genres) #add book
+            key, genre_bool, genre = bu.add_book(library_books, library_genres) #add book and store returned key
+            file_support.update_books(library_books, key)
+            if genre_bool:
+                file_support.update_genres(library_genres, genre)
+
         elif choice == '2': #chose to borrow a book
-            bu.borrow_book(library_users, library_books) #borrow book
+            success = bu.borrow_book(library_users, library_books) #borrow book
+            if success:
+                file_support.save_books(library_books)
+                file_support.save_users(library_users)
         elif choice == '3': #chose to return a book
-            bu.return_book(library_users, library_books) #return book
+            success = bu.return_book(library_users, library_books) #return book
+            if success:
+                file_support.save_books(library_books)
+                file_support.save_users(library_users)
         elif choice == '4': #chose to search for a book
             bu.search_books(library_books) #search books
         elif choice == '5': #chose to display all books
@@ -71,7 +92,8 @@ def user_menu():
 
         choice = input("What would you like to do?: ").strip() #get user choice
         if choice == '1': #chose to add user
-            uu.add_user(library_users) #add user
+            key = uu.add_user(library_users) #add user
+            file_support.update_users(library_users, key)
         elif choice == '2': #view a user's details
             uu.view_user_details(library_users, library_books) #view user details
         elif choice == '3': #display all users
@@ -91,7 +113,8 @@ def author_menu():
 
         choice = input("What would you like to do?: ").strip() #get user choice
         if choice == '1': #chose to add user
-            au.add_author(library_authors) #add user
+            key = au.add_author(library_authors) #add user
+            file_support.update_authors(library_authors, key)
         elif choice == '2': #view a user's details
             au.view_author_details(library_authors) #view user details
         elif choice == '3': #display all users
@@ -111,7 +134,8 @@ def genre_menu():
 
         choice = input("What would you like to do?: ").strip() #get user choice
         if choice == '1': #chose to add genre
-            gu.add_genre(library_genres) #add genre
+            key = gu.add_genre(library_genres) #add genre
+            file_support.update_genres(library_genres, key)
         elif choice == '2': #view a genre's details
             gu.view_genre_details(library_genres) #view genre details
         elif choice == '3': #display all genres

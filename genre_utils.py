@@ -33,6 +33,7 @@ def add_genre(genres_dict):
             break #end loop
         else: #invalid category
             print("That category is invalid. Please enter a valid category") #notify operator of invalid input
+    return name.lower()
 
 def view_genre_details(genres_dict):
     while True:

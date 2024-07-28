@@ -31,6 +31,7 @@ Table of Contents:
         	b. View genre details
         	c. Display all genres
 		d. Return to previous menu
+	7. Notes about automated save/load system
 
 1. Installing and Running the Application:
 	Installation: Clone or download the repository to a directory.
@@ -71,22 +72,33 @@ Table of Contents:
 			This selection will return you to the previous menu.
 	4. User Operations
 		a. Add a new user
+			This selection will ask you for the new user's name, generate a Library ID for them and then add them to the Library user rolls with an empty Borrowed list.
         	b. View user details
+			This selection will ask you for the name or Library ID of the user whose information you wish to view (Name, Library ID, Borrowed titles list).
         	c. Display all users
 			This selection will print out the information of all the users in the Library System.
 		d. Return to previous menu
 			This selection will return you to the previous menu.
 	5. Author Operations
 		a. Add a new author
+			This selection will ask you for the name and a, preferably brief, biography of the author then add that information to the Library records.
         	b. View author details
+			This selection will ask you for the name of the author who you wish to view the information of then display it to you. You may be asked to choose from multiple choices if there are multiple authors with the same name.
         	c. Display all authors
 			This selection will print out the information of all the authors recorded in the Library System.
 		d. Return to previous menu
 			This selection will return you to the previous menu.
 	6. Genre Operations
         	a. Add a new genre
+			This selection will ask you for the name of the genre (i.e. Fantasy, Science Fiction, Biography...), a brief description of the genre, and then finally what category it falls under. Categories currently are Fiction, Non-fiction, Reference, and Periodicals.
         	b. View genre details
+			This selection will ask you about 
         	c. Display all genres
 			This selection will print out the information of all the Genres recorded in the Library System.
 		d. Return to previous menu
 			This selection will return you to the previous menu.
+	7. Notes about automated save/load system
+		The Library Management System automatically loads at startup previously saved information if all the appropriate save files are present. If the all the save files (authors.log, books.log, genres.log, and users.log), they will be created in an empty state. If one or more but not all save files are missing at startup, the user will be asked if they want to erase all existing files and start from an empty state or quit so that they can investigate and hopefully restore the missing files.
+		#ADVANCED FILE FUNCTIONS: For advanced users only, please use with caution#
+		From the Main Menu, the operator can input "Force Reload" and all information currently in loaded in memory will be cleared and information reloaded from the save files.
+		From the Main Menu, the operator can input "Force Save" and all information currently in memory will be saved to the save files.

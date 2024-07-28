@@ -24,13 +24,16 @@ class User:
     
     def add_borrowed(self, book_dict, isbn):
         self._borrowed.append(isbn)
-        print(f"{self._name}(ID:{self._library_id}) has borrowed {book_dict[isbn].get_name()} by {book_dict[isbn].get_author()}")
+        print(f"{self._name}(ID:{self._library_id}) has borrowed {book_dict[isbn].get_title()} by {book_dict[isbn].get_author()}")
 
-    def remove_borrowed(self, book_dict, isbn):
-        if isbn in self._borrowed:
+    def remove_borrowed(self, isbn):
+        try:
             self._borrowed.remove(isbn)
-        else:
+        except KeyError:
             print(f"That title was not borrowed by {self._name}")
+    
+    def set_borrowed(self, borrowed_list):
+        self._borrowed.extend(borrowed_list)
 
 def generate_library_id():
     id = ''.join(random.choices(string.digits, k=12))#generate randomized library id
@@ -48,6 +51,7 @@ def add_user(user_dict):
             break #end loop
 
     user_dict[id] = User(name, id) #initialize new user to user dictionary with library id as key
+    return id
 
 def view_user_details(user_dict, book_dict):
     if user_dict: #check that user dictionary isn't empty

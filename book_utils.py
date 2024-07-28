@@ -3,12 +3,12 @@ import datetime as dt
 import user_utils as uu
 
 class Book(gu.Genre):
-    def __init__(self, name, descriptor, category, title, author, isbn, pubdate):
+    def __init__(self, name, descriptor, category, title, author, isbn, pubdate, status = True):
         self._title = title
         self._author = author
         self._isbn = isbn
         self._publication_date = pubdate
-        self._status = True
+        self._status = status
         super().__init__(name, descriptor, category)
     
     def get_title(self): #getter for __title
@@ -78,11 +78,11 @@ def isbn_from_title(book_dict, title): #function to return the isbn of a book by
                 else: #invalid choice
                     print("That was not a valid choice. Please try again") #notify operator of invalid choice
             except TypeError: #invalid input type error
-                print("Only inputs of the number of your choice accepted. Please try again") #notify operator of error
+                print("\033[7mOnly inputs of the number of your choice accepted. Please try again\033[0m") #notify operator of error
             except ValueError: #nonsensical number input error
-                print("That input does not map to a number. Please try again") #notify operator of error
+                print("\033[7mThat input does not map to a number. Please try again\033[0m") #notify operator of error
             except Exception: #general exception
-                print("Unexpect error occurred. Please try again") #notify operator of error
+                print("\033[7mUnexpect error occurred. Please try again\033[0m") #notify operator of error
     else: #no books found
         print("That title has returned no matching books") #notify operator that book is not found
         return False
@@ -117,6 +117,7 @@ def add_book(book_dict, genre_dict):
 
     while True: #loop incase of invalid inputs
         print("Please choose a genre for the book: ") #ask user for the book genre
+        genre_bool = False
         if genre_dict: #ensure there are already genres in the genre dictionary
             for genre in genre_dict.keys(): #iterate through genre names as keys in genre dictionary
                 print(genre_dict[genre].get_name()) #print the iterated genre
@@ -128,12 +129,16 @@ def add_book(book_dict, genre_dict):
                 break #end loop
             else: #chosen genre is not in genre dictionary
                 print("That genre isn't in the list of available genres. Please add genre to continue adding book.") #notify operator and ask them to add genre to dictionary
-                gu.add_genre(genre_dict) #add genre to the genre dictionary then continue loop
+                genre = gu.add_genre(genre_dict) #add genre to the genre dictionary then continue loop
+                genre_bool = True
         else: #no genres in dictionary
             print("There are no genres added to the library currently. Please add genre to continue adding book.") #notify operator and ask them to add genre to dictionary
-            gu.add_genre(genre_dict) #add genre to the genre dictionary then continue loop
+            genre = gu.add_genre(genre_dict) #add genre to the genre dictionary then continue loop
+            genre_bool = True
 
     book_dict[isbn] = Book(name, description, category, title, author, isbn, pub_date) #create new book in book dictionary with isbn as identifier
+    return (isbn, genre_bool, genre)
+
 
 def borrow_book(user_dict, book_dict):
     while True: #loop in case of invalid input
@@ -151,12 +156,12 @@ def borrow_book(user_dict, book_dict):
                 user_dict[user].add_borrowed(book_dict, query) #add book to user's borrow list
                 book_dict[query].set_status_borrowed()#change book status to borrowed
                 print(f'"{book_dict[query].get_title()}" has been borrowed by user {user_dict[user].get_name()}') #notify operator of success of borrowing title
-                break
+                return True
             else: #status borrowed
                 print(f'"{book_dict[query].get_title()}" is already borrowed out') #notify operator that that book is unavailable
-                break
+                return False
         except KeyError: #key error occurs
-            print("Erroneous Input: Please try again") #Notify operator of error
+            print("\033[7mErroneous Input: Please try again\033[0m") #Notify operator of error
 
 def return_book(user_dict, book_dict):
     while True: #loop in case of erroneous input
@@ -170,15 +175,15 @@ def return_book(user_dict, book_dict):
                 query = isbn_from_title(book_dict, query)
 
             if book_dict[query].get_status() == "Borrowed": #check status of book is not available
-                user_dict[user].remove_borrowed(book_dict, query) #remove book from user's borrow list
+                user_dict[user].remove_borrowed(query) #remove book from user's borrow list
                 book_dict[query].set_status_available()#change book status to available
                 print(f'"{book_dict[query].get_title()}" has been returned by user {user_dict[user].get_name()}') #notify operator of success of returning title
-                break
+                return True
             else: #status available
                 print(f'"{book_dict[query].get_title()}" is already returned/available') #notify operator that that book is already returned/available
-                break
+                return False
         except KeyError: #KeyError Occurs
-            print("Erroneous Input: Please try again") #Notify operator of error
+            print("\033[7mErroneous Input: Please try again\033[0m") #Notify operator of error
 
 def display_book(book_dict, isbn):
     try:
@@ -188,11 +193,11 @@ def display_book(book_dict, isbn):
             print(f"Genre: {book_dict[isbn].get_name()}")
             print(f"ISBN: {book_dict[isbn].get_isbn()}")
             print(f"Publication Date: {book_dict[isbn].get_publication_date().strftime("%B %d, %Y")}") #print book data to operator
-            print(f"Status: {book_dict[isbn].get_status()}")
+            print(f"Status: {book_dict[isbn].get_status()}\n")
         else:
-            print("The title chosen to display does not exist")
+            print("\nThe title chosen to display does not exist\n")
     except KeyError:
-        print("Invalid Book ID")
+        print("\033[7mInvalid Book ID\033[0m")
 
 def search_books(book_dict):
     while True: #loop in case of invalid input
@@ -258,13 +263,13 @@ def search_books(book_dict):
 
 def display_all_books(book_dict):
     if book_dict:
-        print("\nBooks in the library: ")
+        print("\n\033[4mBooks in the library:\033[0m")
         for book in book_dict.values(): #iterate through book dictionary
             print(f"Title: {book.get_title()}")
             print(f"Author {book.get_author()}")
             print(f"Genre: {book.get_name()}")
             print(f"ISBN: {book.get_isbn()}:")
-            print(f"Publication Date: {book.get_publication_date().strftime("%B %d, %Y")}\n") #print book data to operator#display_book(isbn key)
-            print(f"Status: {book.get_status()}")
+            print(f"Publication Date: {book.get_publication_date().strftime("%B %d, %Y")}") #print book data to operator#display_book(isbn key)
+            print(f"Status: {book.get_status()}\n")
     else:
-        print("There are no books currently in the library")
+        print("There are no books currently in the library\n")
