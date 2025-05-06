@@ -2,7 +2,7 @@
 
 Library Management System Mini Project for Coding Temple Software Engineering Course
 
-## Table of Contents:
+## Table of Contents
 
 1. Installing and Running the Application
     1. Installation
@@ -71,7 +71,6 @@ This selection will take you to the menu for handling user operations such as ad
 This selection will take you to the menu for handling Author operations such as adding, displaying information about, and listing all authors with records in the library system.
 
 ### 2.4. Genre Operations
-
 
 This selection will take you to the menu for handling Genre operations such as adding, displaying information about, and listing all Genres recorded and available in the library system.
 
@@ -147,7 +146,7 @@ This selection will ask you for the name of the genre (i.e. Fantasy, Science Fic
 
 ### 6.2 View genre details
 
-This selection will ask you about 
+This selection will ask you about
 
 ### 6.3 Display all genres
 
